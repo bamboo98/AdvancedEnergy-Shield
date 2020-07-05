@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>高级能量系列-护盾-pre4</name>
+	<packageId>zhuzi.AdvancedEnergy.Shields</packageId>
+	<supportedVersions>
+		<li>1.1</li>
+	</supportedVersions>
+	<author>竹子菌</author>
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>zhuzi.Lib</li>
+	</loadAfter>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>zhuzi.Lib</packageId>
+			<displayName>zzLib</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+	</modDependencies>
+	<description>
+	高级能量系列-护盾【pre4】
+	部分代码来源:ED-Shield  RemoveTech
+	图片素材来源:ED-Shield  save our ship 2
+	
+	【该版本为预览版】
+	素材为临时使用,正式版会替换成自己的
+
+	完整的能量护盾科技树
+	可无限升级的能量护盾
+
+	【更新内容 2020年7月5日18:12:51】
+	科技树转移到单独标签页
+	修改了科技的defname,防止重名冲突,旧存档读取会爆一次红,但是不影响游戏运行,可以忽略,科技需要重新研发
+	库文件单独提取作为zzLib独立MOD,需要zzLib作为前置
+
+	【更新内容 2020年7月4日22:31:43】
+	修复敌我识别插件在安装后无法生效的BUG(旧存档需要手动开启一下护盾的敌我识别,新存档自动开启)
+
+	【更新内容 2020年7月4日13:19:42】
+	修复敌我识别插件在研究后无法安装的BUG
+	增加护盾伤害跳字
+
+	</description>
+</ModMetaData>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef Name="zzBuildingBase_Shield" Abstract="True">
+		<category>Building</category>
+		<soundImpactDefault>MetalHitImportant</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>RealtimeOnly</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<designationCategory>Security</designationCategory>
+		<blockLight>false</blockLight>
+
+
+	</ThingDef>
+
+	<!-- Shield Building -->
+
+	<ThingDef ParentName="zzBuildingBase_Shield">
+		<defName>Building_ShieldGenerator</defName>
+		<label>能量护盾</label>
+		<description>建造一个能量护盾装置,可以在建造完成后通过插件升级</description>
+		<thingClass>zhuzi.AdvancedEnergy.Shields.Shields.Building_Shield</thingClass>
+		<researchPrerequisites>
+			<li>Research_AdvanceEnergyShield</li>
+		</researchPrerequisites>
+		<graphicData>
+			<texPath>Things/ShieldBuilding_Blue</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+		</graphicData>
+		<uiIconPath>Things/ShieldBuilding_Blue</uiIconPath>
+		<altitudeLayer>Building</altitudeLayer>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<fillPercent>1</fillPercent>
+		<size>(1,1)</size>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<holdsRoof>false</holdsRoof>
+		<statBases>
+			<MaxHitPoints>500</MaxHitPoints>
+			<WorkToBuild>2000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Beauty>-2</Beauty>
+			<Mass>50</Mass>
+
+			<!-- 下面是护盾相关stat,可以去statDef查看具体说明 -->
+			<zzShieldEnergyMax>150</zzShieldEnergyMax>
+			<zzShieldRechargePerSec>0.005</zzShieldRechargePerSec>
+			<zzShieldRadius>4</zzShieldRadius>
+
+			<zzShieldWarmupDelay>20</zzShieldWarmupDelay>
+			<zzShieldEnergyInit>1</zzShieldEnergyInit>
+
+			<zzShieldHurtRate>1</zzShieldHurtRate>
+			<zzShieldHurtRate_EMP>5</zzShieldHurtRate_EMP>
+			<zzShieldHurtRate_Flame>2.5</zzShieldHurtRate_Flame>
+			<zzShieldHurtRate_AOE>1</zzShieldHurtRate_AOE>
+			<zzShieldHurtRateExtra_EMP>0.15</zzShieldHurtRateExtra_EMP>
+
+			<zzShieldDefenceBullet>1</zzShieldDefenceBullet>
+			<zzShieldDefenceProjectile>0</zzShieldDefenceProjectile>
+			<zzShieldDefenceSky>0</zzShieldDefenceSky>
+			<zzShieldDefenceIFF>0</zzShieldDefenceIFF>
+
+			<zzPowerConsumption>200</zzPowerConsumption>
+			<zzPowerConsumptionRate>1</zzPowerConsumptionRate>
+			<zzPowerConsumptionCache>1</zzPowerConsumptionCache>
+			<!-- 上面是护盾相关stat,可以去statDef查看具体说明 -->
+
+		</statBases>
+		<costList>
+			<Steel>100</Steel>
+			<Silver>500</Silver>
+			<Plasteel>100</Plasteel>
+			<Gold>100</Gold>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<inspectorTabs>
+			<li>zhuzi.AdvancedEnergy.Shields.Shields.ITab_ShieldGenerator</li>
+		</inspectorTabs>
+		<passability>Impassable</passability>
+		<selectable>true</selectable>
+		<tickerType>Normal</tickerType>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>Buildings</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>zzLib.Comp.CompStatPowerIdle</compClass>
+				<shortCircuitInRain>false</shortCircuitInRain>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>1</maxSimultaneous>
+			</li>
+			<li Class="zhuzi.AdvancedEnergy.Shields.Shields.CompProperties_ShieldGenerator">
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>错峰用电</label>
+				<referenceId>zzIdlePower</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Power</researchPrerequisite>
+				<workAmount>3000</workAmount>
+				<effectDescription>护盾在充满能量后的耗电量降低至20%\n但是在充能时的耗电量增加至150%\n请保证电网中有充足的电量储备,无法满足护盾功率时,护盾有立刻离线的可能</effectDescription>
+				<costList>
+					<Plasteel>100</Plasteel>
+					<Gold>100</Gold>
+					<ComponentSpacer>2</ComponentSpacer>
+				</costList>
+				<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
+				<intSkillPrerequisite>9</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>先进储能</label>
+				<referenceId>zzEnergyUpgrade</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Energy</researchPrerequisite>
+				<workAmount>1000</workAmount>
+				<effectDescription>提升护盾的能量上限,但是会增大耗电量,可以无限升级</effectDescription>
+				<costList>
+					<Silver>500</Silver>
+					<Gold>100</Gold>
+					<ComponentIndustrial>3</ComponentIndustrial>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionRate>1.06</zzPowerConsumptionRate>
+				</statModifiers>
+				<statModifiersOffset>
+					<zzShieldEnergyMax>130</zzShieldEnergyMax>
+					<zzPowerConsumption>100</zzPowerConsumption>
+				</statModifiersOffset>
+				<unlimitedUpgrade>true</unlimitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>多级缓存</label>
+				<referenceId>zzEnergyCache</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_EnergyCache</researchPrerequisite>
+				<workAmount>1800</workAmount>
+				<effectDescription>给护盾增加多级缓存电容,降低护盾的能量逸散率,可以升级10次</effectDescription>
+				<costList>
+					<Gold>500</Gold>
+					<ComponentIndustrial>3</ComponentIndustrial>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionCache>0.7</zzPowerConsumptionCache>
+				</statModifiers>
+				<limitedUpgrade>10</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>高速充能</label>
+				<referenceId>zzEnergyRecharge</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Recharge</researchPrerequisite>
+				<workAmount>1800</workAmount>
+				<effectDescription>以高功率为代价提高护盾充能速度,可以无限升级</effectDescription>
+				<costList>
+					<Steel>150</Steel>
+					<ComponentIndustrial>10</ComponentIndustrial>
+					<ComponentSpacer>1</ComponentSpacer>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionRate>1.5</zzPowerConsumptionRate>
+				</statModifiers>
+				<statModifiersOffset>
+					<zzShieldRechargePerSec>0.0025</zzShieldRechargePerSec>
+					<zzPowerConsumption>300</zzPowerConsumption>
+				</statModifiersOffset>
+				<unlimitedUpgrade>true</unlimitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<!-- 升级插件类名,复制粘贴即可 -->
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<!-- 名称 -->
+				<label>远程投射</label>
+				<!-- 唯一ID,不要和其他的升级插件重复 -->
+				<referenceId>zzShieldRadius</referenceId>
+				<!-- 需求的科技研究项,目前只能设置一个 -->
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Radius</researchPrerequisite>
+				<!-- 工作量 -->
+				<workAmount>1000</workAmount>
+				<!-- 说明 -->
+				<effectDescription>提高护盾投射功率,让护盾可以笼罩更大的范围,最多升级96次</effectDescription>
+				<!-- 升级耗材 -->
+				<costList>
+					<Silver>200</Silver>
+					<ComponentIndustrial>5</ComponentIndustrial>
+					<ComponentSpacer>1</ComponentSpacer>
+				</costList>
+				<!-- 对本体的stat修改(乘法) -->
+				<statModifiers>
+					<zzPowerConsumptionRate>1.06</zzPowerConsumptionRate>
+				</statModifiers>
+				<!-- 对本体的stat修改(加法)(先算所有升级的加法,再算乘法) -->
+				<statModifiersOffset>
+					<zzShieldRadius>1</zzShieldRadius>
+					<zzPowerConsumption>100</zzPowerConsumption>
+				</statModifiersOffset>
+				<!-- 允许是否无限升级 -->
+				<unlimitedUpgrade>false</unlimitedUpgrade>
+				<!-- 有限次数升级时的最大升级次数 -->
+				<limitedUpgrade>96</limitedUpgrade>
+				<!-- 需求的建造技能等级 -->
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<!-- 需求的智识技能等级 -->
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>快速启动</label>
+				<referenceId>zzShieldFasterInit</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Init</researchPrerequisite>
+				<workAmount>1500</workAmount>
+				<effectDescription>减少护盾激活需要的时间,可以升级6次</effectDescription>
+				<costList>
+					<Plasteel>75</Plasteel>
+					<ComponentIndustrial>3</ComponentIndustrial>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldWarmupDelay>-2</zzShieldWarmupDelay>
+				</statModifiersOffset>
+				<limitedUpgrade>6</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>初始能量</label>
+				<referenceId>zzShieldEnergyInit</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_Init</researchPrerequisite>
+				<workAmount>1500</workAmount>
+				<effectDescription>提高护盾在激活时拥有的初始能量,可升级5次</effectDescription>
+				<costList>
+					<Plasteel>75</Plasteel>
+					<ComponentSpacer>3</ComponentSpacer>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldEnergyInit>0.01</zzShieldEnergyInit>
+				</statModifiersOffset>
+				<limitedUpgrade>5</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>5</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>EMP抗性</label>
+				<referenceId>zzShieldDefenceHurtEMP</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceHurt</researchPrerequisite>
+				<workAmount>2000</workAmount>
+				<effectDescription>降低EMP弹药对护盾的伤害效果,可升级5次</effectDescription>
+				<costList>
+					<Steel>200</Steel>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldHurtRate_EMP>-0.5</zzShieldHurtRate_EMP>
+				</statModifiersOffset>
+				<limitedUpgrade>5</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>7</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>热能抗性</label>
+				<referenceId>zzShieldDefenceHurtFlame</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceHurt</researchPrerequisite>
+				<workAmount>2000</workAmount>
+				<effectDescription>降低热能弹药对护盾的伤害效果,可升级5次</effectDescription>
+				<costList>
+					<Steel>200</Steel>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldHurtRate_Flame>-0.3</zzShieldHurtRate_Flame>
+				</statModifiersOffset>
+				<limitedUpgrade>5</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>7</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>爆破抗性</label>
+				<referenceId>zzShieldDefenceHurtAOE</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceHurtAOE</researchPrerequisite>
+				<workAmount>2500</workAmount>
+				<effectDescription>全面降低所有爆破AOE武器对护盾的伤害比例,可升级10次</effectDescription>
+				<costList>
+					<Plasteel>200</Plasteel>
+					<ComponentSpacer>2</ComponentSpacer>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldHurtRate_AOE>-0.07</zzShieldHurtRate_AOE>
+				</statModifiersOffset>
+				<limitedUpgrade>10</limitedUpgrade>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>7</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>高级EMP抗性</label>
+				<referenceId>zzShieldDefenceHurtEMP2</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceHurtEMP</researchPrerequisite>
+				<workAmount>2500</workAmount>
+				<effectDescription>进一步提高护盾对EMP武器的抗性,可升级5次</effectDescription>
+				<costList>
+					<Plasteel>200</Plasteel>
+					<ComponentSpacer>2</ComponentSpacer>
+				</costList>
+				<statModifiersOffset>
+					<zzShieldHurtRateExtra_EMP>-0.02</zzShieldHurtRateExtra_EMP>
+				</statModifiersOffset>
+				<limitedUpgrade>5</limitedUpgrade>
+				<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+				<intSkillPrerequisite>9</intSkillPrerequisite>
+				<prerequisiteUpgradeId>zzShieldDefenceHurtEMP</prerequisiteUpgradeId>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>抛射物防御</label>
+				<referenceId>zzShieldDefenceProjectile</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceProjectile</researchPrerequisite>
+				<workAmount>3000</workAmount>
+				<effectDescription>提高护盾防御角度,使其可以阻挡炮弹之类的抛射物体</effectDescription>
+				<costList>
+					<ComponentIndustrial>10</ComponentIndustrial>
+					<ComponentSpacer>3</ComponentSpacer>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionRate>1.5</zzPowerConsumptionRate>
+				</statModifiers>
+				<statModifiersOffset>
+					<zzShieldDefenceProjectile>1</zzShieldDefenceProjectile>
+				</statModifiersOffset>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>7</intSkillPrerequisite>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>天空防御</label>
+				<referenceId>zzShieldDefenceSky</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceSky</researchPrerequisite>
+				<workAmount>4000</workAmount>
+				<effectDescription>提高护盾防御角度,使其可以阻挡炮弹之类的抛射物体</effectDescription>
+				<costList>
+					<Gold>500</Gold>
+					<ComponentIndustrial>10</ComponentIndustrial>
+					<ComponentSpacer>3</ComponentSpacer>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionRate>1.5</zzPowerConsumptionRate>
+				</statModifiers>
+				<statModifiersOffset>
+					<zzShieldDefenceSky>1</zzShieldDefenceSky>
+				</statModifiersOffset>
+				<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+				<intSkillPrerequisite>11</intSkillPrerequisite>
+				<prerequisiteUpgradeId>zzShieldDefenceProjectile</prerequisiteUpgradeId>
+			</li>
+
+			<li Class="zzLib.Comp.CompProperties_Upgrade">
+				<label>敌我识别</label>
+				<referenceId>zzShieldDefenceIFF</referenceId>
+				<researchPrerequisite>Research_AdvanceEnergyShield_Upgrades_DefenceIFF</researchPrerequisite>
+				<workAmount>5000</workAmount>
+				<effectDescription>给护盾添加人工智能核心,让护盾可以识别敌我,不再阻挡友方的子弹,抛射物和空投仓</effectDescription>
+				<costList>
+					<Gold>500</Gold>
+	  				<AIPersonaCore>1</AIPersonaCore>
+					<ComponentIndustrial>15</ComponentIndustrial>
+					<ComponentSpacer>3</ComponentSpacer>
+				</costList>
+				<statModifiers>
+					<zzPowerConsumptionRate>1.8</zzPowerConsumptionRate>
+				</statModifiers>
+				<statModifiersOffset>
+					<zzShieldDefenceIFF>1</zzShieldDefenceIFF>
+				</statModifiersOffset>
+				<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
+				<intSkillPrerequisite>13</intSkillPrerequisite>
+			</li>
+
+
+
+		</comps>
+	</ThingDef>
+
+
+
+	<ThingDef ParentName="MoteBase">
+		<defName>zz_Mote_BlastShield</defName>
+		<graphicData>
+			<texPath>Things/Mote/ShieldImpact</texPath>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+		<mote>
+			<solidTime>0</solidTime>
+			<fadeOutTime>0.2</fadeOutTime>
+		</mote>
+	</ThingDef>
+
+	<DamageDef ParentName="StunBase">
+		<defName>zz_ShieldExplosion</defName>
+		<label>Shield</label>
+		<deathMessage>{0} has glitched to death.</deathMessage>
+		<harmsHealth>false</harmsHealth>
+		<impactSoundType>Electric</impactSoundType>
+		<defaultDamage>0</defaultDamage>
+		<explosionSnowMeltAmount>0</explosionSnowMeltAmount>
+		<explosionCellMote>zz_Mote_BlastShield</explosionCellMote>
+		<explosionColorEdge>(0.8, 0.8, 0.8, 0.8)</explosionColorEdge>
+		<explosionInteriorMote>Mote_ElectricalSpark</explosionInteriorMote>
+		<soundExplosion>Interceptor_BlockProjectile</soundExplosion>
+	</DamageDef>
+
+
+
+</Defs>
