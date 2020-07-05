@@ -1,5 +1,0 @@
-D:\steam\steamapps\common\RimWorld\Mods\AdvancedEnergy-Shield\source\obj\Debug\AdvancedEnergy-Shield.csprojAssemblyReference.cache
-D:\steam\steamapps\common\RimWorld\Mods\AdvancedEnergy-Shield\source\obj\Debug\AdvancedEnergy-Shield.csproj.CoreCompileInputs.cache
-D:\steam\steamapps\common\RimWorld\Mods\AdvancedEnergy-Shield\1.1\Assemblies\AdvancedEnergy-Shield.dll
-D:\steam\steamapps\common\RimWorld\Mods\AdvancedEnergy-Shield\source\obj\Debug\AdvancedEnergy-Shield.csproj.CopyComplete
-D:\steam\steamapps\common\RimWorld\Mods\AdvancedEnergy-Shield\source\obj\Debug\AdvancedEnergy-Shield.dll
