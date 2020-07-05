@@ -51,7 +51,7 @@
 			<zzShieldRadius>4</zzShieldRadius>
 
 			<zzShieldWarmupDelay>20</zzShieldWarmupDelay>
-			<zzShieldEnergyInit>1</zzShieldEnergyInit>
+			<zzShieldEnergyInit>0</zzShieldEnergyInit>
 
 			<zzShieldHurtRate>1</zzShieldHurtRate>
 			<zzShieldHurtRate_EMP>5</zzShieldHurtRate_EMP>
