@@ -21,7 +21,7 @@
 			<packageId>zhuzi.Lib</packageId>
 			<displayName>zzLib</displayName>
 			<steamWorkshopUrl>steam://url/CommunityFilePage/</steamWorkshopUrl>
-			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+			<downloadUrl>https://github.com/bamboo98/zzLib</downloadUrl>
 		</li>
 	</modDependencies>
 	<description>
